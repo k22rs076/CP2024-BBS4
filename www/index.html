@@ -81,7 +81,7 @@ function validateContent(content) {
 }
 
 // 認証フォームのバリデーション
-function validateAuthInput(email, password,userName, isRegister = false) {
+function validateAuthInput(email, password,displayName, isRegister = false) {
     if (!email || !email.trim()) {
         showMessage('メールアドレスを入力してください', 'error');
         return false;
@@ -94,7 +94,8 @@ function validateAuthInput(email, password,userName, isRegister = false) {
         showMessage('パスワードは6文字以上にしてください', 'error');
         return false;
     }
-    if (!userName || !userName.trim()) {
+
+    if (!displayName || !displayName.trim()) {
         showMessage('ユーザーネームを入力してください', 'error');
         return false;
     }
@@ -119,7 +120,7 @@ function createPost(author, content) {
         content: content,
         timestamp: firebase.database.ServerValue.TIMESTAMP,
         userId: currentUser.uid,
-        userName:currentUser.userName
+        userName:currentUser.displayName
     };
 
     postsRef.push(postData)
@@ -417,7 +418,7 @@ function register(email, password,userName) {
     const button = $('#registerButton');
     button.prop('disabled', true);
 
-    firebase.auth().createUserWithEmailAndPasswordAndUsername(email, password,userName)
+    firebase.auth().createUserWithEmailAndPasswordAndDisplayName(email, password,userName)
         .then(() => {
             showMessage('アカウントを作成しました');
             clearAuthForm();
@@ -507,6 +508,8 @@ $(function() {
 
     // 投稿一覧表示順序選択
     $('#sortOrder').on('change', loadPosts);
+    //名無しボタン
+    $('#nameless').on('active', nameless);
 
     // 投稿一覧の初期読み込み
     loadPosts();
@@ -543,8 +546,9 @@ window.addEventListener('unload', function() {
             </div>
             <div class="form-group">
                 <label for="loginPassword">ユーザーネーム</label>
-                <input type="userName" id="userName" 
+                <input type="displayName" id="userName" 
                        class="form-control" 
+            </div>
             <div class="button-group">
                 <button id="loginButton" class="btn-primary">ログイン</button>
                 <button id="registerButton" class="btn-secondary">新規登録</button>
@@ -566,6 +570,9 @@ window.addEventListener('unload', function() {
                           placeholder="投稿内容を入力してください"></textarea>
                 <small class="character-count" id="contentCount">0/1000</small>
             </div>
+            <label class="toggle-button-1">
+            <input type="checkbox"/>
+            </label>
             <div class="button-group">
                 <button id="postButton" class="btn-primary">投稿する</button>
             </div>
