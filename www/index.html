@@ -94,10 +94,12 @@ function validateAuthInput(email, password,displayName, isRegister = false) {
         showMessage('パスワードは6文字以上にしてください', 'error');
         return false;
     }
+    /*
     //ユーザーネーム
     if (!displayName || !displayName.trim()) {   showMessage('ユーザーネームを入力してください', 'error');
         return false;
     }
+    */
     return true;
 }
 
@@ -411,13 +413,13 @@ function login(email, password) {
 }
 
 // 新規登録処理
-function register(email, password,userName) {
-    if (!validateAuthInput(email, password,displayName, true)) return;
+function register(email, password) {
+    if (!validateAuthInput(email, password, true)) return;
 
     const button = $('#registerButton');
     button.prop('disabled', true);
 
-    firebase.auth().createUserWithEmailAndPassword(email, password,userName)
+    firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(() => {
             showMessage('アカウントを作成しました');
             clearAuthForm();
@@ -570,9 +572,11 @@ window.addEventListener('unload', function() {
                           placeholder="投稿内容を入力してください"></textarea>
                 <small class="character-count" id="contentCount">0/1000</small>
             </div>
+            <!-- /*
             <label class="toggle-button-1">
             <input type="checkbox"/>
             </label>
+            */ -->
             <div class="button-group">
                 <button id="postButton" class="btn-primary">投稿する</button>
             </div>
