@@ -94,9 +94,8 @@ function validateAuthInput(email, password,displayName, isRegister = false) {
         showMessage('パスワードは6文字以上にしてください', 'error');
         return false;
     }
-
-    if (!displayName || !displayName.trim()) {
-        showMessage('ユーザーネームを入力してください', 'error');
+    //ユーザーネーム
+    if (!displayName || !displayName.trim()) {   showMessage('ユーザーネームを入力してください', 'error');
         return false;
     }
     return true;
@@ -413,12 +412,12 @@ function login(email, password) {
 
 // 新規登録処理
 function register(email, password,userName) {
-    if (!validateAuthInput(email, password,userName, true)) return;
+    if (!validateAuthInput(email, password,displayName, true)) return;
 
     const button = $('#registerButton');
     button.prop('disabled', true);
 
-    firebase.auth().createUserWithEmailAndPasswordAndDisplayName(email, password,userName)
+    firebase.auth().createUserWithEmailAndPassword(email, password,userName)
         .then(() => {
             showMessage('アカウントを作成しました');
             clearAuthForm();
@@ -544,8 +543,9 @@ window.addEventListener('unload', function() {
                        class="form-control" placeholder="6文字以上">
                 <small class="help-text">※新規登録時は6文字以上</small>
             </div>
+            <!--ユーザーネーム登録 -->
             <div class="form-group">
-                <label for="loginPassword">ユーザーネーム</label>
+                <label for="userName">ユーザーネーム</label>
                 <input type="displayName" id="userName" 
                        class="form-control" 
             </div>
