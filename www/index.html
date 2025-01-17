@@ -531,11 +531,7 @@ $(function() {
         register(email, password);
     });
 
-    $('#updateuserButton').on('click',function(){
-       const email = $('#loginEmail').val();
-        const password = $('#loginPassword').val();
-        edituser(email, password);
-    });
+    $('#updateuserButton').on('click',updateuser);
 
     $('#logoutButton').on('click', logout);
 
@@ -671,7 +667,26 @@ document.getElementById('BG').style.background = newColor;
             </div>
         </div>
     </div>
-    
+     <!--ユーザー更新 -->
+    <div id="usereditModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>ユーザー情報を編集</h3>
+                <button class="modal-close" onclick="closeModal('editModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea id="editContent" class="form-control"></textarea>
+                    <small class="character-count" id="editContentCount">0/1000</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="handleUpdate()" class="btn-primary">更新</button>
+                <button onclick="closeModal('editModal')" class="btn-cancel">キャンセル</button>
+            </div>
+        </div>
+    </div>
     <!-- ユーザー編集モーダルウィンドウ -->
     <div id="edituserModal" class="modal">
         <div class="modal-overlay"></div>
