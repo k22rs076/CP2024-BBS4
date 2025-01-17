@@ -531,6 +531,8 @@ $(function() {
         register(email, password);
     });
 
+    $('#updateuserButton').on('click',updateuser);
+
     $('#logoutButton').on('click', logout);
 
     // 投稿一覧表示順序選択
@@ -587,11 +589,11 @@ window.addEventListener('unload', function() {
             <div class="form-group">
                 <label for="contentInput">投稿内容</label>
                 <textarea id="contentInput" class="form-control" 
-                          placeholder="投稿内容を入力してください"></textarea>
+                          placeholder="ユーザー名を入力してください"></textarea>
                 <small class="character-count" id="contentCount">0/1000</small>
             </div>
             <div class="button-group">
-                <button id="postButton" class="btn-primary">投稿する</button>
+                <button id="updateuserButton" class="btn-primary">投稿する</button>
             </div>
         </div> 
          -->
@@ -627,13 +629,13 @@ window.addEventListener('unload', function() {
             </div>
         </div>
     </div>
-    <!--ユーザー更新 -->
+    <!--ユーザー更新モーダル -->
     <div id="usereditModal" class="modal">
         <div class="modal-overlay"></div>
         <div class="modal-content">
             <div class="modal-header">
                 <h3>ユーザー情報を編集</h3>
-                <button class="modal-close" onclick="closeModal('editModal')">&times;</button>
+                <button class="modal-close" onclick="closeModal('edituserModal')">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -647,6 +649,29 @@ window.addEventListener('unload', function() {
             </div>
         </div>
     </div>
+    <!-- ユーザー編集モーダルウィンドウ -->
+    <div id="edituserModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>ユーザー名編集</h3>
+                <button class="modal-close" onclick="closeModal('edituserModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea id="editContent" class="form-control"></textarea>
+                    <small class="character-count" id="editContentCount">0/100</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="handleUpdate()" class="btn-primary">更新</button>
+                <button onclick="closeModal('edituserModal')" class="btn-cancel">キャンセル</button>
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- 編集モーダルウィンドウ -->
     <div id="editModal" class="modal">
         <div class="modal-overlay"></div>
