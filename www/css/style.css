@@ -543,3 +543,11 @@ textarea.form-control {
 .logged-out {
     display: none;
 }
+
+/*色変更制御*/
+#bss1 {
+    background-color:white;
+}
+#messageArea {
+    background-color:red;
+}

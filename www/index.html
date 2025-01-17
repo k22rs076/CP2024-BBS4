@@ -531,9 +531,14 @@ $(function() {
         register(email, password);
     });
 
-    $('#updateuserButton').on('click',updateuser);
+    $('#updateuserButton').on('click',function(){
+       const email = $('#loginEmail').val();
+        const password = $('#loginPassword').val();
+        edituser(email, password);
+    });
 
     $('#logoutButton').on('click', logout);
+
 
     // 投稿一覧表示順序選択
     $('#sortOrder').on('change', loadPosts);
@@ -549,12 +554,49 @@ window.addEventListener('unload', function() {
         postsListener = null;
     }
 });
+
+//色変更処理
+function changeColor(newColor) {
+    document.getElementById('bss1');
+    
+}
+function changeColor() {
+    // アプリの背景を変える処理を追加
+    document.getElementById('bss1').style.backgroundColor = 'red';
+    const colors = [
+  "red",
+  "blue",
+  "yellow",
+  "green",
+  "orange",
+  "brown",
+  "pink",
+  "black",
+];
+
+button.addEventListener("click", () => {
+  button.style.background = colors[Math.floor(Math.random() * colors.length)];
+});
+
+}
+//背景色変更処理
+function buttonClick( newColor ){     
+document.getElementById('BG').style.background = newColor;
+        }
+
     </script>
 </head>
-<body>
+<body id ="BG">
     <div class="container">
-        <h1>掲示板アプリ</h1>
-        
+        <h1 id="bss1">掲示板アプリ</h1>
+
+        <body>
+        <h1 ></h1>
+    <!--色変更ボタン -->
+        <input type="button" value="colormode" onclick="changeColor()">
+        <body>
+        <button onclick="buttonClick('linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)')">bluegradation</button> 
+        <button onclick="buttonClick('#f8f9fa')">return</button>
         <!-- メッセージ表示エリア -->
         <div id="messageArea"></div>
 
@@ -629,26 +671,7 @@ window.addEventListener('unload', function() {
             </div>
         </div>
     </div>
-    <!--ユーザー更新モーダル -->
-    <div id="usereditModal" class="modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>ユーザー情報を編集</h3>
-                <button class="modal-close" onclick="closeModal('edituserModal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <textarea id="editContent" class="form-control"></textarea>
-                    <small class="character-count" id="editContentCount">0/1000</small>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button onclick="handleUpdate()" class="btn-primary">更新</button>
-                <button onclick="closeModal('editModal')" class="btn-cancel">キャンセル</button>
-            </div>
-        </div>
-    </div>
+    
     <!-- ユーザー編集モーダルウィンドウ -->
     <div id="edituserModal" class="modal">
         <div class="modal-overlay"></div>
